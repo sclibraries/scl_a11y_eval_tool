@@ -73,6 +73,7 @@ export default class Main extends Component {
           <nav className="col-sm-4 col-md-3 d-none d-sm-block bg-dark sidebar">
             <SearchForm
               handleSearch={this.handleSearch}
+              credits={this.state.data}
             />
           </nav>
           <main className="col-sm-8 ml-sm-auto col-md-9 pt-3" role="main">

@@ -14,6 +14,13 @@ export default class SearchForm extends Component {
   }
 
   render() {
+    const credits = this.props.credits
+    const credit = credits.map((value, index) =>
+        <span key={index}>
+          <strong>({value.statistics.creditsremaining} remaining)</strong>
+        </span>
+    )
+
     return (
       <div className="col-md-3 form-wrapper">
       <Form onSubmit={(e) => this.handleSubmit(e)}>
@@ -28,7 +35,7 @@ export default class SearchForm extends Component {
           />
         </FormGroup>
         <FormGroup controlId="formControlsSelect">
-          <ControlLabel>Credits</ControlLabel>
+          <ControlLabel>Credits {credit}</ControlLabel>
             <FormControl
               componentClass="select"
               placeholder="select"
