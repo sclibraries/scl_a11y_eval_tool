@@ -1,7 +1,10 @@
 {
-  "name": "accessibility",
-  "version": "0.1.0",
-  "private": true,
+  "name": "scl_a11y_eval_tool",
+  "author": "Rob O'Connell",
+  "version": "1.0.0",
+  "description": "Smith College Libraries evaluation tool for accessibility using the webaim api",
+  "license": "MIT",
+  "private": false,
   "dependencies": {
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.0",
