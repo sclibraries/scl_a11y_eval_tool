@@ -25,12 +25,17 @@ body {
 
 }
 
-.alert {
+
+.error-alert {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 10001;
+}
+
+.message {
+  font-size: 12px;
 }
 
 .main-summary {
@@ -42,14 +47,7 @@ body {
     background: #ddd;
 }
 
-.primary-logo {
-  position: fixed;
-  top: 0px;
-  width: 16.5%;
-  max-width: 250px;
-  min-width: 16.5%;
-  max-height: 190px;
-}
+
 
 
 .form-wrapper {

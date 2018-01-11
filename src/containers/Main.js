@@ -62,7 +62,7 @@ export default class Main extends Component {
       }
       {this.state.error
         ?
-          <div className="alert alert-danger alert-dismissible fade show" role="alert">{this.state.errorText}
+          <div className="alert alert-danger alert-dismissible fade show error-alert" role="alert">{this.state.errorText}
           <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={this.removeError}>
             <span aria-hidden="true">&times;</span>
           </button>
@@ -78,7 +78,9 @@ export default class Main extends Component {
           </nav>
           <main className="col-sm-8 ml-sm-auto col-md-9 pt-3" role="main">
             <h1 className="main-summary">Summary Report</h1>
-
+            <div className="alert alert-dark" role="alert">
+              <span className="message">This tool leverages the <a href="http://wave.webaim.org/api/">WAVE API</a> developed by <a href="http://webaim.org/">WebAIM</a>. Please visit their websites to learn more about web accessibility and to purchase API credits.</span>
+            </div>
             <Tabs
               display={this.handleDisplay}
             />
