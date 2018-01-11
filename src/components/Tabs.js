@@ -16,10 +16,10 @@ export default class Tabs extends Component {
     return(
       <ul className="nav nav-tabs">
         <li className="nav-item">
-          <a className={this.state.active === 'basic' ? "nav-link active" : "nav-link"} href="#" onClick={(e) => this.handleClick(e, 'basic')}>Basic</a>
+          <a className={this.state.active === 'basic' ? "nav-link active" : "nav-link"} href="/basic" onClick={(e) => this.handleClick(e, 'basic')}>Basic</a>
         </li>
         <li className="nav-item">
-          <a className={this.state.active === 'detailed' ? "nav-link active" : "nav-link"} href="#" onClick={(e) => this.handleClick(e, 'detailed')}>Detailed</a>
+          <a className={this.state.active === 'detailed' ? "nav-link active" : "nav-link"} href="/detailed" onClick={(e) => this.handleClick(e, 'detailed')}>Detailed</a>
         </li>
       </ul>
     )

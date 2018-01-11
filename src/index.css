@@ -33,6 +33,11 @@ body {
   z-index: 10001;
 }
 
+.main-summary {
+  font-size: 22px;
+  font-weight: 300;
+}
+
 .comment:nth-child(odd) {
     background: #ddd;
 }

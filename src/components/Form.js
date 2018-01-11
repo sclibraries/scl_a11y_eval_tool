@@ -24,17 +24,17 @@ export default class SearchForm extends Component {
     return (
       <div className="col-md-3 form-wrapper">
       <Form onSubmit={(e) => this.handleSubmit(e)}>
-        <FormGroup>
+        <FormGroup controlId="formApiKey">
           <ControlLabel>API Key</ControlLabel>
           <FormControl
             type="text"
             placeholder="Ender API Key"
-            id="api"
+            id="formApiKey"
             name="api"
             inputRef={(input) => this.api = input}
           />
         </FormGroup>
-        <FormGroup controlId="formControlsSelect">
+        <FormGroup controlId="formCreditSelect">
           <ControlLabel>Credits {credit}</ControlLabel>
             <FormControl
               componentClass="select"
@@ -46,7 +46,7 @@ export default class SearchForm extends Component {
             <option value="2">2 credits</option>
           </FormControl>
         </FormGroup>
-        <FormGroup controlId="formControlsTextarea">
+        <FormGroup controlId="formURLs">
           <ControlLabel>Websites</ControlLabel>
           <FormControl
             componentClass="textarea"

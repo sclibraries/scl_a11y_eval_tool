@@ -77,6 +77,8 @@ export default class Main extends Component {
             />
           </nav>
           <main className="col-sm-8 ml-sm-auto col-md-9 pt-3" role="main">
+            <h1 className="main-summary">Summary Report</h1>
+
             <Tabs
               display={this.handleDisplay}
             />

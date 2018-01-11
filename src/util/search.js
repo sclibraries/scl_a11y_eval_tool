@@ -5,7 +5,7 @@ class ContentSearch extends Component {
 
 
   webAim = async (url, key, credit) => {
-      let search = await this.search(webaim + '?' + `key=${key}&url=${url}&reporttype=${credit}`)
+      let search = await this.search(webaim + `?key=${key}&url=${url}&reporttype=${credit}`)
       return search
   }
 
