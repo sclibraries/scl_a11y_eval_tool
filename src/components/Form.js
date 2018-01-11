@@ -3,6 +3,10 @@ import {Form, FormGroup, FormControl, ControlLabel} from 'react-bootstrap'
 
 export default class SearchForm extends Component {
 
+  state = {
+    credits: 0
+  }
+
   handleSubmit = (e) => {
     e.preventDefault()
     const items = {
@@ -15,11 +19,6 @@ export default class SearchForm extends Component {
 
   render() {
     const credits = this.props.credits
-    const credit = credits.map((value, index) =>
-        <span key={index}>
-          <strong>({value.statistics.creditsremaining} remaining)</strong>
-        </span>
-    )
 
     return (
       <div className="col-md-3 form-wrapper">
@@ -35,7 +34,7 @@ export default class SearchForm extends Component {
           />
         </FormGroup>
         <FormGroup controlId="formCreditSelect">
-          <ControlLabel>Credits {credit}</ControlLabel>
+          <ControlLabel>Credits ({this.props.credits} remaining)</ControlLabel>
             <FormControl
               componentClass="select"
               placeholder="select"
