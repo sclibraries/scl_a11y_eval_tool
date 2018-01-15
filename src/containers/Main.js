@@ -4,6 +4,7 @@ import ContentSearch from '../util/search'
 import Results from '../components/Results'
 import Detailed from '../components/Detailed'
 import Tabs from '../components/Tabs'
+import {CSVLink} from 'react-csv'
 
 export default class Main extends Component {
 
@@ -62,6 +63,29 @@ export default class Main extends Component {
 
   render() {
     const display = this.state.display
+    const data = this.state.data
+    const date = new Date()
+    const headers = [
+      'PageURL',
+      'Errors',
+      'Alerts',
+      'Feature',
+      'Structure',
+      'Html5',
+      'Contrast'
+    ];
+    const set = data.map((value, index) =>
+      [
+        value.statistics.pageurl,
+        value.categories.error.count,
+        value.categories.alert.count,
+        value.categories.feature.count,
+        value.categories.structure.count,
+        value.categories.html5.count,
+        value.categories.contrast.count
+      ]
+    )
+
     return (
       <div className="container-fluid">
       {this.state.loading
@@ -89,6 +113,16 @@ export default class Main extends Component {
             <h1 className="main-summary">Summary Report</h1>
             <div className="alert alert-dark" role="alert">
               <span className="message">This tool leverages the <a href="http://wave.webaim.org/api/">WAVE API</a> developed by <a href="http://webaim.org/">WebAIM</a>. Please visit their websites to learn more about web accessibility and to purchase API credits.</span>
+            </div>
+            <div className="float-right export-button">
+              <CSVLink
+                data={set}
+                headers={headers}
+                filename={`export-${date}.csv`}
+                className="btn btn-success"
+                target="_blank">
+                  Export
+              </CSVLink>
             </div>
             <Tabs
               display={this.handleDisplay}
