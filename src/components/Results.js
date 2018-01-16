@@ -7,7 +7,7 @@ export default class Results extends Component {
     const data = this.props.data[key]
     return(
     <tr key={key}>
-      <td>
+      <td className="col-md-3 page-url-column">
         <a href={data.statistics.waveurl} target="_blank">{data.statistics.pageurl}</a>
       </td>
       <td>{data.categories.error.count}</td>
