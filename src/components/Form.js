@@ -18,8 +18,6 @@ export default class SearchForm extends Component {
   }
 
   render() {
-    const credits = this.props.credits
-
     return (
       <div className="col-md-3 form-wrapper">
       <Form onSubmit={(e) => this.handleSubmit(e)}>

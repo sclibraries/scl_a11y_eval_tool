@@ -27,12 +27,12 @@ export default class Results extends Component {
 		    <thead>
 			     <tr>
 				      <th>Page Url</th>
-				      <th className="table-danger">Errors</th>
-				      <th className="table-warning">Alert</th>
-				      <th className="table-success">Feature</th>
-              <th className="table-primary">Structure</th>
-              <th className="table-info">HTML 5</th>
-              <th className="table-secondary">Contrast</th>
+				      <th scope="row" className="table-danger">Errors</th>
+				      <th scope="row" className="table-warning">Alert</th>
+				      <th scope="row" className="table-success">Feature</th>
+              <th scope="row" className="table-primary">Structure</th>
+              <th scope="row" className="table-info">HTML 5</th>
+              <th scope="row" className="table-secondary">Contrast</th>
 			     </tr>
 		     </thead>
          <tbody>
