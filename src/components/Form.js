@@ -39,8 +39,8 @@ export default class SearchForm extends Component {
               inputRef={(input) => this.credits = input}
             >
             <option value="select">select</option>
-            <option value="1">1 credit</option>
-            <option value="2">2 credits</option>
+            <option value="1">Summary (1 credit)</option>
+            <option value="2">Summary and Detail (2 credits)</option>
           </FormControl>
         </FormGroup>
         <FormGroup controlId="formURLs">
