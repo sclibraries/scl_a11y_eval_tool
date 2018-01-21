@@ -4,7 +4,7 @@ import { Table } from 'react-bootstrap'
 export default class DetailedDisplay extends Component {
 
   renderDisplay = (key) => {
-    const data = this.props.data.items[key]
+    const data = this.props.data[key]
     return(
       <tr key={key}>
         <td>{data.id}</td>
@@ -16,31 +16,14 @@ export default class DetailedDisplay extends Component {
 
   render() {
     const data = this.props.data
-    if(data.items) {
     return(
-      <Table striped bordered condensed hover>
-        <thead>
-          <tr>
-          <th>Item</th>
-          <th>Count</th>
-          <th>Description</th>
-       </tr>
-     </thead>
-     <tbody>
+      <tbody>
       {
         Object
-         .keys(data.items)
+         .keys(data)
          .map(this.renderDisplay)
        }
-    </tbody>
-    </Table>
+      </tbody>
     )
-  } else {
-    return(
-      <div>
-        <p>No data.  Did you run a detailed report?</p>
-      </div>  
-    )
-  }
   }
 }

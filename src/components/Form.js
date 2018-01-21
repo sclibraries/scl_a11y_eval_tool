@@ -17,6 +17,10 @@ export default class SearchForm extends Component {
     this.props.handleSearch(items)
   }
 
+  changeDisplay = (e) => {
+    this.props.display(e.target.value)
+  }
+
   render() {
     return (
       <div className="col-md-3 form-wrapper">
@@ -37,6 +41,7 @@ export default class SearchForm extends Component {
               componentClass="select"
               placeholder="select"
               inputRef={(input) => this.credits = input}
+              onChange={(e) => this.changeDisplay(e)}
             >
             <option value="select">select</option>
             <option value="1">Summary (1 credit)</option>

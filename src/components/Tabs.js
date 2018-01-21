@@ -13,6 +13,9 @@ export default class Tabs extends Component {
   }
 
   render() {
+    const display = this.props.tabDisplay
+    console.log(display)
+    if(display === '2') {
     return(
       <ul className="nav nav-tabs">
         <li className="nav-item">
@@ -23,5 +26,14 @@ export default class Tabs extends Component {
         </li>
       </ul>
     )
+  } else {
+    return(
+    <ul className="nav nav-tabs">
+      <li className="nav-item">
+        <a className={this.state.active === 'basic' ? "nav-link active" : "nav-link"} href="/basic" onClick={(e) => this.handleClick(e, 'basic')}>Basic</a>
+      </li>
+    </ul>
+  )
+  }
   }
 }

@@ -14,7 +14,8 @@ export default class Main extends Component {
     loading: false,
     error: false,
     errorText: '',
-    credits: 0
+    credits: 0,
+    tabDisplay: 1
   }
 
   handleSearch = async (items) => {
@@ -58,6 +59,12 @@ export default class Main extends Component {
   removeError = () => {
     this.setState({
       error: false
+    })
+  }
+
+  setDisplay = (value) => {
+    this.setState({
+      tabDisplay: value
     })
   }
 
@@ -107,6 +114,7 @@ export default class Main extends Component {
             <SearchForm
               handleSearch={this.handleSearch}
               credits={this.state.credits}
+              display={this.setDisplay}
             />
           </nav>
           <main className="col-sm-8 ml-sm-auto col-md-9 pt-3" role="main">
@@ -126,6 +134,7 @@ export default class Main extends Component {
             </div>
             <Tabs
               display={this.handleDisplay}
+              tabDisplay={this.state.tabDisplay}
             />
             {
               display === 'basic' ? <Results data={this.state.data} /> :
