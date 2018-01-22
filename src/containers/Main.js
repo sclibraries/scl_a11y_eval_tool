@@ -4,6 +4,10 @@ import ContentSearch from '../util/search'
 import Results from '../components/Results'
 import Detailed from '../components/Detailed'
 import Tabs from '../components/Tabs'
+import ExportForm from '../components/ExportForm'
+import * as Convert from '../util/convertData';
+import { saveAs } from 'file-saver';
+import moment from 'moment';
 import {CSVLink} from 'react-csv'
 
 export default class Main extends Component {
@@ -15,7 +19,8 @@ export default class Main extends Component {
     error: false,
     errorText: '',
     credits: 0,
-    tabDisplay: 1
+    tabDisplay: 1,
+    exportDisplay: false
   }
 
   handleSearch = async (items) => {
@@ -66,6 +71,28 @@ export default class Main extends Component {
     this.setState({
       tabDisplay: value
     })
+  }
+
+  exportData = (data) => {
+    switch(data.type){
+      case 'CSV':
+        saveAs(Convert.toCSV(this.state.data, this.state.tabDisplay), `${data.name}.csv`)
+      break;
+      case 'HTML':
+        saveAs(Convert.toHTML(this.state.data, this.state.tabDisplay), `${data.name}.html`)
+      break;
+      case 'JSON':
+        saveAs(Convert.toJSON(this.state.data), `${data.name}.json`)
+      break;
+      default:
+        alert('Error: unknown file type');
+    }
+
+  }
+
+  toggle = (e) => {
+    this.setState({exportDisplay: !this.state.exportDisplay});
+
   }
 
   render() {
@@ -122,15 +149,15 @@ export default class Main extends Component {
             <div className="alert alert-dark" role="alert">
               <span className="message">This tool leverages the <a href="http://wave.webaim.org/api/">WAVE API</a> developed by <a href="http://webaim.org/">WebAIM</a>. Please visit their websites to learn more about web accessibility and to purchase API credits.</span>
             </div>
+            {
+              this.state.exportDisplay ?
+                  <ExportForm
+                    handleExport={this.exportData}
+                  />
+              : ''
+            }
             <div className="float-right export-button">
-              <CSVLink
-                data={set}
-                headers={headers}
-                filename={`export-${date}.csv`}
-                className="btn btn-success"
-                target="_blank">
-                  Export
-              </CSVLink>
+              <button className="btn btn-primary" onClick={(e) => this.toggle(e)}>Export</button>
             </div>
             <Tabs
               display={this.handleDisplay}

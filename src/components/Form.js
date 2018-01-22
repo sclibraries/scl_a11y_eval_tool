@@ -3,6 +3,10 @@ import {Form, FormGroup, FormControl, ControlLabel} from 'react-bootstrap'
 
 export default class SearchForm extends Component {
 
+  componentDidMount(){
+    this.api.focus();
+  }
+
   state = {
     credits: 0
   }
