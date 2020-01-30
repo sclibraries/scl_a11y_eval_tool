@@ -4,8 +4,8 @@ import { webaim } from '../config/endpoint'
 class ContentSearch extends Component {
 
 
-  webAim = async (url, key, credit) => {
-      let search = await this.search(webaim + `?key=${key}&url=${url}&reporttype=${credit}`)
+  webAim = async (url, key, credit, viewport) => {
+      let search = await this.search(webaim + `?key=${key}&url=${url}&reporttype=${credit}&viewportwidth=${viewport && viewport !== '' ? viewport : 1200}`)
       return search
   }
 
@@ -15,9 +15,7 @@ class ContentSearch extends Component {
         let response = await fetch(searchType);
         return await response.json();
     } catch (e) {
-        return {
-
-        }
+        console.log(e)
     }
   }
 

@@ -9,6 +9,8 @@ import * as Convert from '../util/convertData';
 import { saveAs } from 'file-saver';
 import moment from 'moment';
 import {CSVLink} from 'react-csv'
+import localforage from 'localforage'
+
 
 export default class Main extends Component {
 
@@ -20,7 +22,15 @@ export default class Main extends Component {
     errorText: '',
     credits: 0,
     tabDisplay: 1,
-    exportDisplay: false
+    exportDisplay: false,
+    reports: []
+  }
+
+  componentDidMount = async () => {
+    const data = await this.handleLocalStorage() || []
+    this.setState({
+      reports: data
+    })
   }
 
   handleSearch = async (items) => {
@@ -32,7 +42,7 @@ export default class Main extends Component {
     })
     for (let i = 0; i < urls.length; i++) {
       const entry = urls[i].replace(/.*?:\/\//g, '').trim();
-      let search = await ContentSearch.webAim(entry, items.api, items.credits)
+      let search = await ContentSearch.webAim(entry, items.api, items.credits, items.viewport)
       if(search.categories) {
       this.setState({
           data: this.state.data.concat(search),
@@ -51,8 +61,28 @@ export default class Main extends Component {
         credits: value.statistics.creditsremaining
       })
     )
+    
 
-    this.setState({loading: false})
+
+    this.setState({loading: false}, () => localforage.setItem(`${moment().format('LLLL')}`, this.state.data))
+  }
+
+  handleLocalStorage = async () => {
+    const results = await localforage.keys()
+    return results
+  }
+
+  getLocalReports = async (key) => {
+    const results = await localforage.getItem(key)
+    return results
+  }
+
+  handleReports = async (value) => {
+    const local = await this.getLocalReports(value)
+    this.setState({
+      data: local,
+      tabDisplay: '5'
+    })
   }
 
   handleDisplay = (value) => {
@@ -105,20 +135,20 @@ export default class Main extends Component {
       'Alerts',
       'Feature',
       'Structure',
-      'Html5',
+      'ARIA',
       'Contrast'
     ];
-    const set = data.map((value, index) =>
+    const set = data && data.length ? data.map((value, index) =>
       [
-        value.statistics.pageurl,
-        value.categories.error.count,
-        value.categories.alert.count,
-        value.categories.feature.count,
-        value.categories.structure.count,
-        value.categories.html5.count,
-        value.categories.contrast.count
+        value && value.statistics ? value.statistics.pageurl : '',
+        value && value.categories ? value.categories.error.count : 0,
+        value && value.categories ? value.categories.alert.count : 0,
+        value && value.categories ? value.categories.feature.count : 0,
+        value && value.categories ? value.categories.structure.count : 0,
+        value && value.categories ? value.categories.aria.count : 0,
+        value && value.categories ? value.categories.contrast.count : 0
       ]
-    )
+    ) : ''
 
     return (
       <div className="container-fluid">
@@ -142,6 +172,8 @@ export default class Main extends Component {
               handleSearch={this.handleSearch}
               credits={this.state.credits}
               display={this.setDisplay}
+              reports={this.state.reports}
+              handleReports={this.handleReports}
             />
           </nav>
           <main className="col-sm-8 ml-sm-auto col-md-9 pt-3" role="main">
@@ -165,7 +197,9 @@ export default class Main extends Component {
             />
             {
               display === 'basic' ? <Results data={this.state.data} /> :
-              display === 'detailed' ? <Detailed data={this.state.data} /> :
+              display === 'detailed' ? <Detailed data={this.state.data} display={display} /> :
+              display === 'detailed_css' ? <Detailed data={this.state.data} display={display} /> :
+              display === 'detailed_xpath' ? <Detailed data={this.state.data} display={display} /> :
               <Results data={this.state.data} />
             }
           </main>

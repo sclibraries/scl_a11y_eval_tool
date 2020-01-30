@@ -7,9 +7,15 @@ export default class DetailedDisplay extends Component {
     const data = this.props.data[key]
     return(
       <tr key={key}>
-        <td>{data.id}</td>
-        <td>{data.count}</td>
-        <td>{data.description}</td>
+        <td>{data ? data.id : ''}</td>
+        <td>{data ? data.count : ''}</td>
+        <td>{data ? data.description : ''}</td>
+        {data && data.selectors ?
+          <td>{data.selectors[0]}</td>  
+        : ''}  
+        {data && data.xpaths ?
+          <td>{data.xpaths[0]}</td>  
+        : ''}  
       </tr>
     )
   }

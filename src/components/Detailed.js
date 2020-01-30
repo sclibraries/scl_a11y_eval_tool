@@ -17,7 +17,6 @@ export default class Detailed extends Component {
 
   renderDisplay = (key) => {
     const data = this.props.data[key]
-    const display = this.state.display
     return(
       <div className="card" key={key}>
         <div className="card-header">
@@ -25,7 +24,7 @@ export default class Detailed extends Component {
         </div>     
       <div className="card-body">
         <div className="table-responsive">
-            <DetailedDisplaySimple data={data.categories} />
+            <DetailedDisplaySimple data={data.categories} display={this.props.display} />
         </div>
       </div>
     </div>

@@ -8,14 +8,14 @@ export default class Results extends Component {
     return(
     <tr key={key}>
       <td className="col-md-3 page-url-column">
-        <a href={data.statistics.waveurl} target="_blank">{data.statistics.pageurl}</a>
+        <a href={data && data.statistics ? data.statistics.waveurl : ''} target="_blank">{data && data.statistics ? data.statistics.pageurl : ''}</a>
       </td>
-      <td>{data.categories.error.count}</td>
-      <td>{data.categories.alert.count}</td>
-      <td>{data.categories.feature.count}</td>
-      <td>{data.categories.structure.count}</td>
-      <td>{data.categories.html5.count}</td>
-      <td>{data.categories.contrast.count}</td>
+      <td>{data && data.categories.error ? data.categories.error.count : 0}</td>
+      <td>{data && data.categories.alert ? data.categories.alert.count : 0}</td>
+      <td>{data && data.categories.feature ? data.categories.feature.count : 0}</td>
+      <td>{data && data.categories.structure ? data.categories.structure.count : 0}</td>
+      <td>{data && data.categories.aria ? data.categories.aria.count : 0}</td>
+      <td>{data && data.categories.contrast ? data.categories.contrast.count : 0}</td>
     </tr>
   )
   }
@@ -31,16 +31,12 @@ export default class Results extends Component {
 				      <th scope="row" className="table-warning">Alert</th>
 				      <th scope="row" className="table-success">Feature</th>
               <th scope="row" className="table-primary">Structure</th>
-              <th scope="row" className="table-info">HTML 5</th>
+              <th scope="row" className="table-info">ARIA</th>
               <th scope="row" className="table-secondary">Contrast</th>
 			     </tr>
 		     </thead>
          <tbody>
-         {
-           Object
-            .keys(this.props.data)
-            .map(this.renderDisplay)
-          }
+         {this.props.data && this.props.data.length ? Object.keys(this.props.data).map(this.renderDisplay) : <tr></tr>}
         </tbody>
 	      </Table>
       </div>

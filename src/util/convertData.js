@@ -17,7 +17,7 @@ function toCSVSummary(data) {
   let csvData = `"WAVE accessibility summary report: ${moment().format('MMMM Do YYYY, h:mma')}"\nSITE URL,ERRORS,ALERTS,FEATURES,STRUCTURE,HTML5 AND ARIA,CONTRAST\n`;
   map(data, (site) => {
     if (site.status.success === true) {
-      csvData += `${site.statistics.pageurl},${site.categories.error.count},${site.categories.alert.count},${site.categories.feature.count},${site.categories.structure.count},${site.categories.html5.count},${site.categories.contrast.count}\n`;
+      csvData += `${site.statistics.pageurl},${site.categories.error.count},${site.categories.alert.count},${site.categories.feature.count},${site.categories.structure.count},${site.categories.aria.count},${site.categories.contrast.count}\n`;
     }
   });
 
@@ -36,9 +36,8 @@ function toCSVDetailed(data) {
 
   // TODO: refactor this...don't repeat the same snippet from up above
   map(data, (site) => {
-    console.log(site)
     if (site.status.success === true) {
-      csvData += `${site.statistics.pageurl},${site.categories.error.count},${site.categories.alert.count},${site.categories.feature.count},${site.categories.structure.count},${site.categories.html5.count},${site.categories.contrast.count}\n`;
+      csvData += `${site.statistics.pageurl},${site.categories.error.count},${site.categories.alert.count},${site.categories.feature.count},${site.categories.structure.count},${site.categories.aria.count},${site.categories.contrast.count}\n`;
     }
   });
 
@@ -59,7 +58,7 @@ function toCSVDetailed(data) {
       map(site.categories.structure.items, (item) => {
         csvData += `${site.statistics.pageurl},Structure,${item.id},${item.count},${item.description}\n`;
       });
-      map(site.categories.html5.items, (item) => {
+      map(site.categories.aria.items, (item) => {
         csvData += `${site.statistics.pageurl},HTML5 and ARIA,${item.id},${item.count},${item.description}\n`;
       });
       map(site.categories.contrast.items, (item) => {
@@ -122,7 +121,7 @@ function toHTMLSummary(data) {
         <td>${site.categories.alert.count}</td>
         <td>${site.categories.feature.count}</td>
         <td>${site.categories.structure.count}</td>
-        <td>${site.categories.html5.count}</td>
+        <td>${site.categories.aria.count}</td>
         <td>${site.categories.contrast.count}</td>
       </tr>`;
     }
@@ -190,7 +189,7 @@ function toHTMLDetailed(data) {
         <td>${site.categories.alert.count}</td>
         <td>${site.categories.feature.count}</td>
         <td>${site.categories.structure.count}</td>
-        <td>${site.categories.html5.count}</td>
+        <td>${site.categories.aria.count}</td>
         <td>${site.categories.contrast.count}</td>
       </tr>`;
     }
@@ -245,7 +244,7 @@ function toHTMLDetailed(data) {
           <td>${item.count}</td>
           <td>${item.description}</td></tr>`;
       });
-      map(site.categories.html5.items, (item) => {
+      map(site.categories.aria.items, (item) => {
         htmlData += `<tr class="html5">
           <td scope="row"><a href="http://${site.statistics.pageurl}" target="_blank">${site.statistics.pageurl}</a></td>
           <td>HTML5 and ARIA</td>
@@ -290,7 +289,7 @@ export function toJSON(data) {
 export function toCSV(data, scanType) {
   if (scanType === '1') {
     return toCSVSummary(data);
-  } else if (scanType === '2') {
+  } else if (scanType === '2' || scanType === '3' || scanType === '4') {
     return toCSVDetailed(data);
   }
 
@@ -306,7 +305,7 @@ export function toCSV(data, scanType) {
 export function toHTML(data, scanType) {
   if (scanType === '1') {
     return toHTMLSummary(data);
-  } else if (scanType === '2') {
+  } else if (scanType === '2' || scanType === '3' || scanType === '4') {
     return toHTMLDetailed(data);
   }
 

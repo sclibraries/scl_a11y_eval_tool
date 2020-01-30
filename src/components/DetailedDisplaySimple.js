@@ -21,9 +21,17 @@ export default class DetailedDisplaySimple extends Component {
             <th scope="row">{data.description}</th>
             <th>Count</th>
             <th>Description</th>
+            {this.props.display === 'detailed_css' ?
+              <th>Selector</th>
+              : ''
+          }
+          {this.props.display === 'detailed_xpath' ?
+              <th>Xpath</th>
+              : ''
+          }
          </tr>
        </thead>
-          <DetailedDisplay data={data.items} />
+          <DetailedDisplay data={data.items} display={this.props.display} />
      </Table>
     )
   }
